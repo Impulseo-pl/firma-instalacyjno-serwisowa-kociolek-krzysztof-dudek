@@ -5,18 +5,20 @@
    ============================================================ */
 
 :root{
-  /* PALETA — jasna, architektoniczna, chłodna */
-  --paper:#F4F6F8;          /* główne tło */
-  --paper-2:#E7EBEF;        /* sekcje alternatywne (chłodny jasny szary) */
-  --paper-3:#E7EBEF;        /* delikatne wypełnienia */
-  --ink:#15212E;            /* tekst główny — chłodny grafit */
-  --ink-soft:#243443;       /* nagłówki drugorzędne */
-  --muted:#6B7785;          /* tekst poboczny */
-  --line:rgba(21,33,46,.12);/* hairline */
-  --accent:#E8A317;         /* stonowany petrol-slate — jedyny akcent */
-  --accent-d:#C9870C;
-  --accent-soft:rgba(232,163,23,.10);
-  --dark:#15212E;           /* sekcje ciemne (stopka/CTA) */
+  /* PALETA — petrol + bursztyn (żywa, ale stonowana; 29.07.2026) */
+  --paper:#F5F8F7;          /* główne tło */
+  --paper-2:#E7F0ED;        /* sekcje alternatywne (chłodna zieleń-mgła) */
+  --paper-3:#DCE9E5;        /* delikatne wypełnienia */
+  --ink:#11232A;            /* tekst główny — głęboki morski grafit */
+  --ink-soft:#1F3D45;       /* nagłówki drugorzędne */
+  --muted:#5C7178;          /* tekst poboczny */
+  --line:rgba(17,35,42,.13);/* hairline */
+  --accent:#0F7A6C;         /* petrol/morski — akcent główny */
+  --accent-d:#0A5A50;
+  --accent-soft:rgba(15,122,108,.10);
+  --accent-2:#E0912F;       /* bursztyn — akcent drugi (grafika, ciemne tła) */
+  --accent-2-d:#96570F;     /* bursztyn ciemny — bursztyn jako TEKST na jasnym */
+  --dark:#0C2B29;           /* sekcje ciemne (stopka/CTA/opinie) */
 
   /* ODSTĘPY — skala 4/8 */
   --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:24px;
@@ -900,5 +902,148 @@ footer{view-transition-name:mt-foot}
 }
 
 
-/* === auto-paleta ze zdjęć klienta (dopasowanie do estetyki socials) === */
-:root{--accent:#9C6135;--accent-d:#7A4924;--accent-soft:rgba(156,97,53,0.10);--paper:#F9F9F8;--paper-2:#EFEEED;--paper-3:#E8E7E5;}
+/* ============================================================
+   ŻYWA PALETA + WARSTWA CHARAKTERU (29.07.2026)
+   ------------------------------------------------------------
+   PO CO: poprzednia paleta (brąz/terakota #9C6135 na kremowym) była poprawna,
+   ale bezbarwna - cała strona czytała się jako jeden beżowy blok.
+   TERAZ: petrol/morski (woda, instalacje) + bursztyn (ciepło, kotły) na chłodnym
+   off-white. Żywe, ale stonowane - zero neonu, zero gradientowych tęcz.
+   Ta warstwa jest OSTATNIA w pliku, więc wygrywa z blokiem bazowym :root wyżej
+   (który dostał te same wartości - trzymamy jedno źródło prawdy, nie dwa).
+   KONTRASTY policzone: petrol na papierze 4.9:1, biel na petrolu 5.2:1,
+   bursztyn tylko jako GRAFIKA na jasnym (2.4:1) albo tekst na ciemnym (5.9:1);
+   bursztyn jako tekst na jasnym = wyłącznie --accent-2-d (5.4:1).
+   ============================================================ */
+:root{
+  --accent:#0F7A6C;--accent-d:#0A5A50;--accent-soft:rgba(15,122,108,.10);
+  --accent-2:#E0912F;--accent-2-d:#96570F;
+  --paper:#F5F8F7;--paper-2:#E7F0ED;--paper-3:#DCE9E5;
+  --ink:#11232A;--ink-soft:#1F3D45;--muted:#5C7178;
+  --line:rgba(17,35,42,.13);--dark:#0C2B29;
+}
+
+/* --- KONTRAST: poprzednia skórka miała bursztyn pod CIEMNYM tekstem. Petrol jest
+   ciemny, więc tekst na nim musi być BIAŁY (5.2:1), inaczej przycisk staje się nieczytelny. --- */
+.btn-accent{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-accent:hover{background:var(--accent-d);border-color:var(--accent-d);color:#fff}
+.nav .nav-links a.btn-accent,
+.nav .nav-links a.btn-accent:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.nav:not(.nav-solid) .nav-links a.btn-accent{background:transparent;border-color:rgba(245,241,234,.55);color:#f5f1ea}
+.nav:not(.nav-solid) .nav-links a.btn-accent:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.sticky-call .sc-call{background:var(--accent);color:#fff}
+.ba-handle span::before{border-right-color:#fff}
+.ba-handle span::after{border-left-color:#fff}
+::selection{background:var(--accent);color:#fff}
+
+/* --- SYGNATURA GRAFICZNA: dwukolorowa kreska (petrol -> bursztyn) zamiast szarej hairline.
+   Wraca w nagłówkach sekcji, kickerach, na górze stopki i w pasku postępu. --- */
+.eyebrow::before{height:2px;width:32px;background:linear-gradient(90deg,var(--accent),var(--accent-2));margin-top:.55em}
+.head h2::after{height:3px;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.head.reveal.in h2::after,.head.center.reveal.in h2::after{width:72px}
+.mt-progress{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+
+/* --- HERO: przyciemnienie w kolorze marki (morskie, nie czarne) + bursztynowy kicker --- */
+.hero-fach::after{background:linear-gradient(102deg,rgba(7,30,28,.95) 0%,rgba(7,30,28,.9) 30%,rgba(8,33,31,.74) 55%,rgba(9,36,34,.4) 78%,rgba(9,36,34,.24) 100%)}
+.hf-kicker{color:#F2B75E}
+.hf-kicker::before{background:#F2B75E}
+.hf-phone-num .ico-tel{color:var(--accent-2)}
+.hf-trust{border-top-color:rgba(242,183,94,.34)}
+.pagehead::after{background:linear-gradient(180deg,rgba(9,34,32,.3),rgba(8,30,28,.74))}
+
+/* --- PASEK OBIETNIC: delikatny gradient tła + bursztynowe przecinki --- */
+.fach-promise{background:linear-gradient(90deg,var(--paper-2),var(--paper-3) 50%,var(--paper-2))}
+.fp-row li:not(:last-child)::after{background:var(--accent-2)}
+/* pasek z oceną Google to jedna pigułka - przy pełnym paddingu sekcji (128px)
+   zostawał wokół niej pusty ekran wyglądający na błąd. Zwężamy do paska. */
+.trust-bar{padding-block:0}
+.trust-bar .wrap{padding-block:var(--space-6)}
+.tb-google{background:#fff;border:1px solid rgba(15,122,108,.28)}
+.tb-google .ico-star{color:var(--accent-2-d)}
+.hf-trust .ico-star{color:var(--accent-2)}
+
+/* --- PROCES: numery w kolorze, kropka osi bursztynowa (było wszystko szare) --- */
+.proces-line .pno{color:var(--accent);font-size:1.9rem}
+.proces-line li::after{background:var(--accent-2);box-shadow:0 0 0 4px var(--paper-2)}
+
+/* --- BRAMY-ZDJĘCIA: barwna poświata marki na hover + bursztynowa kreska pod tytułem --- */
+.gateway::after{background:linear-gradient(180deg,transparent 34%,rgba(8,33,31,.82))}
+.gateway::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;
+  background:linear-gradient(180deg,rgba(15,122,108,0) 30%,rgba(15,122,108,.55));transition:opacity .5s var(--ease)}
+.gateway:hover::before{opacity:1}
+.gateway .g-ttl::before{content:"";display:block;width:26px;height:2px;background:var(--accent-2);margin-bottom:.7rem;transition:width .45s var(--ease)}
+.gateway:hover .g-ttl::before{width:58px}
+
+/* --- LISTA USŁUG: numeracja 01-06 + podświetlenie wiersza. To była najbardziej
+   monotonna sekcja strony - sześć identycznych bloków tekstu bez punktu zaczepienia. --- */
+.fach-uslugi .fu-list{counter-reset:fu}
+.fu-row{counter-increment:fu;position:relative;padding-inline:var(--space-4);
+  margin-inline:calc(var(--space-4) * -1);transition:background .35s var(--ease)}
+.fu-row::before{content:"";position:absolute;left:0;top:-1px;bottom:0;width:2px;background:var(--accent);
+  transform:scaleY(0);transform-origin:top;transition:transform .4s var(--ease)}
+.fu-row:hover{background:linear-gradient(90deg,var(--accent-soft),transparent 65%)}
+.fu-row:hover::before{transform:scaleY(1)}
+.fu-name::before{content:counter(fu,decimal-leading-zero);display:block;font-family:var(--font-display);
+  font-size:.72rem;font-weight:700;letter-spacing:.18em;color:var(--accent);margin-bottom:.35rem}
+
+/* --- GALERIA: kafle dostają obrys marki na hover (wcześniej hover był ledwo widoczny) --- */
+.tile{border:1px solid transparent;transition:border-color .35s var(--ease),transform var(--dur) var(--ease)}
+.tile:hover{border-color:rgba(15,122,108,.45)}
+
+/* --- OPINIE NA CIEMNYM: środek strony dostaje pełnoekranowy, głęboko morski blok.
+   Rytm jasne-ciemne-jasne to najprostszy sposób, żeby strona przestała być „jedną płachtą". --- */
+.opinie{background:var(--dark);color:#fff;position:relative;overflow:hidden}
+.opinie::before{content:"";position:absolute;right:-140px;top:-120px;width:460px;height:460px;border-radius:50%;
+  background:radial-gradient(circle,rgba(224,145,47,.16),transparent 70%);pointer-events:none}
+.opinie .wrap{position:relative;z-index:2}
+.opinie h2{color:#fff}
+.opinie .eyebrow{color:#F2B75E}
+.opinie .head p{color:rgba(255,255,255,.72)}
+.op-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);border-radius:var(--r-md);
+  padding:var(--space-7) var(--space-6) var(--space-6);position:relative;overflow:hidden}
+/* cudzysłów siedzi WEWNĄTRZ karty (ma overflow:hidden) - ujemny top ucinał go
+   do dwóch kresek wyglądających na błąd renderowania */
+.op-card::before{content:"\201C";position:absolute;right:1.1rem;top:.9rem;font-family:Georgia,'Times New Roman',serif;
+  font-size:6.5rem;line-height:.8;color:rgba(255,255,255,.11);pointer-events:none}
+.op-card blockquote{color:rgba(255,255,255,.9);position:relative;z-index:1}
+.op-star{color:var(--accent-2)}
+.op-autor{color:#fff}
+.op-autor::before{content:"";display:block;width:22px;height:2px;background:var(--accent-2);margin-bottom:.6rem}
+
+/* --- OBSZAR: chip miasta w kolorze marki (był grafitowy jak reszta) --- */
+.obszar-list li.is-home{background:var(--accent);border-color:var(--accent);color:#fff}
+.obszar-list li:hover{border-color:var(--accent);color:var(--accent-d)}
+
+/* --- FAQ: sekcja NIE miała żadnego stylu (gołe <details> systemowe). Teraz akordeon
+   z hairline'ami i znakiem +, który przy otwarciu obraca się w x. --- */
+.faq-klinika{background:var(--paper-2)}
+.faq-list{max-width:52rem;margin-inline:auto;border-top:1px solid var(--line)}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+  gap:var(--space-5);padding:var(--space-5) 0;font-family:var(--font-display);font-weight:700;
+  font-size:1.06rem;color:var(--ink);transition:color .24s var(--ease)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";flex:none;font-family:var(--font-display);font-size:1.5rem;line-height:1;
+  color:var(--accent);transition:transform .3s var(--ease),color .24s var(--ease)}
+.faq-item summary:hover{color:var(--accent-d)}
+.faq-item[open] summary{color:var(--accent-d)}
+.faq-item[open] summary::after{transform:rotate(135deg)}
+.faq-item p{color:var(--muted);font-size:var(--text-base);line-height:1.6;padding-bottom:var(--space-5);max-width:62ch}
+
+/* --- CTA + STOPKA: ciemny morski z dwiema poświatami i kreską marki na styku --- */
+.cta::before{background:radial-gradient(circle,rgba(224,145,47,.22),transparent 70%)}
+.cta::after{content:"";position:absolute;left:-140px;bottom:-160px;width:440px;height:440px;border-radius:50%;
+  background:radial-gradient(circle,rgba(15,122,108,.38),transparent 70%);z-index:1;pointer-events:none}
+footer{position:relative}
+footer::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.foot-brand .name{color:#fff}
+.foot-col h4{color:#F2B75E;opacity:.85}
+
+/* --- MOBILE: wiersz usług nie może wystawać poza .wrap (ujemny margines byłby
+   szerszy niż 4% marginesu kontenera i dołożyłby poziomy pasek przewijania). --- */
+@media(max-width:760px){
+  .fu-row{padding-inline:0;margin-inline:0}
+  .opinie::before{width:280px;height:280px;right:-90px;top:-80px}
+  .cta::after{width:300px;height:300px;left:-110px;bottom:-130px}
+}
